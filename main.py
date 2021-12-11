@@ -55,20 +55,24 @@ def handle_message(event):
     pattern_03 = "おめでと|うれし|嬉し"
     pattern_04 = "愛子|あいこ|アイコ|愛|アイ|aiko"
     pattern_05 = "健吾|けんご|ケンゴ|kengo|シェフ|しぇふ"
-    pattern_06 = "江城"    
+    pattern_06 = "江城"
+    pattern_07 = "おはよ|こんばん|こんにち"
 
-    if re.match(pattern_01, text_norm):
+
+    if re.search(pattern_01, text_norm):
         response = "ナイス!"
-    elif re.match(pattern_02, text_norm):
+    elif re.search(pattern_02, text_norm):
         response = "ファイト!"
-    elif re.match(pattern_03, text_norm):
+    elif re.search(pattern_03, text_norm):
         response = "グッド!"
-    elif re.match(pattern_04, text_norm):
+    elif re.search(pattern_04, text_norm):
         response = "それは俺の嫁だ!"
-    elif re.match(pattern_05, text_norm):
+    elif re.search(pattern_05, text_norm):
         response = "呼んだ？こんにちは健吾botです"
-    elif re.match(pattern_06, text_norm):
+    elif re.search(pattern_06, text_norm):
         response = "Yes K&A"
+    elif re.search(pattern_07, text_norm):
+        response = "おう，元気か？"
 
     if response != '':
         line_bot_api.reply_message(
