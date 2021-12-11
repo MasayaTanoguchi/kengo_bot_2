@@ -11,6 +11,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 import os
+import re
+import neologdn
+
 
 app = Flask(__name__)
 
@@ -41,17 +44,37 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    # text
     text = event.message.text
+    text_norm = neologdn.normalize(text).lower()
+    # response
     response = ''
     # 返答作成
-    if 'True' in text:
-        response = 'どうも'
+    pattern_01 = "!!+|ー!"
+    pattern_02 = "頑張|応援"
+    pattern_03 = "おめでと|うれし|嬉し"
+    pattern_04 = "愛子|あいこ|アイコ|愛|アイ|aiko"
+    pattern_05 = "健吾|けんご|ケンゴ|kengo|シェフ|しぇふ"
+    pattern_06 = "江城"    
 
-    else:
-        response = '？？？'
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=response))
+    if re.match(pattern_01, text_norm):
+        response = "ナイス!"
+    elif re.match(pattern_02, text_norm):
+        response = "ファイト!"
+    elif re.match(pattern_03, text_norm):
+        response = "グッド!"
+    elif re.match(pattern_04, text_norm):
+        response = "それは俺の嫁だ!"
+    elif re.match(pattern_05, text_norm):
+        response = "呼んだ？こんにちは健吾botです"
+    elif re.match(pattern_06, text_norm):
+        response = "Yes K&A"
+
+    if response != '':
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=response))
+    
 
 
 if __name__ == "__main__":
