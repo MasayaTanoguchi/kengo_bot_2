@@ -13,6 +13,7 @@ from linebot.models import (
 import os
 import re
 import neologdn
+import numpy as np
 
 
 app = Flask(__name__)
@@ -57,6 +58,8 @@ def handle_message(event):
     pattern_05 = "健吾|けんご|ケンゴ|kengo|シェフ|しぇふ"
     pattern_06 = "江城"
     pattern_07 = "おはよ|こんばん|こんにち"
+    pattern_08 = "やる気|元気|げんき"
+    pattern_09 = "かわいい|可愛い"
 
 
     if re.search(pattern_01, text_norm):
@@ -68,11 +71,15 @@ def handle_message(event):
     elif re.search(pattern_04, text_norm):
         response = "それは俺の嫁だ!"
     elif re.search(pattern_05, text_norm):
-        response = "呼んだ？こんにちは健吾botです"
+        response = "愛子の旦那，健吾です"
     elif re.search(pattern_06, text_norm):
-        response = "Yes K&A"
+        response = "Yes K&A!!"
     elif re.search(pattern_07, text_norm):
         response = "おう，元気か？"
+    elif re.search(pattern_08, text_norm):
+        response = np.random.choice(np.load('phrase.npy'),size=1)[0]
+    elif re.search(pattern_09, text_norm):
+        response = "ありがと!"
 
     if response != '':
         line_bot_api.reply_message(
